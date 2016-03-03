@@ -1,14 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Ticketee</title>
+  <!--如果title为nil则返回Ticketee-->
+
+  <title>
+    <% if content_for?(:title) %>
+        <%= yield(:title) %>
+    <% else %>
+        Ticketee
+    <% end %>
+  </title>
+
+  <!--<title><%= @title || "Ticketee" %></title>-->
+
   <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
 
-<%= flash.each do |key, value| %>
+<% flash.each do |key, value| %>
     <div class='flash' id='<%= key %>'>
       <%= value %>
     </div>

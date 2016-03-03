@@ -6,10 +6,16 @@ feature 'Creating Projects' do
 
     click_link 'New Project'
 
-    fill_in 'Name', with: 'TextMate 2'
+    fill_in 'Name', with: 'TextMate'
     fill_in 'Description', with: 'A text editor'
     click_button 'Create Project'
 
     expect(page).to have_content('Project has been created.')
+
+    project = Project.where(name: "TextMate").first
+    expect(page.current_url).to eql(project_url(project))
+    title = "TextMate - Projects - Ticketee"
+    expect(page).to have_title(title)
+
   end
 end
